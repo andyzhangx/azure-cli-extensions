@@ -1059,7 +1059,7 @@ class ManagedClustersOperations(object):
 
 
     def _rotate_cluster_certificates_initial(
-            self, resource_group_name, resource_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, resource_name, parameters, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.rotate_cluster_certificates.metadata['url']
         path_format_arguments = {
@@ -1083,7 +1083,7 @@ class ManagedClustersOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters)
+        request = self._client.post(url, query_parameters, header_parameters, parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [202, 204]:
@@ -1096,7 +1096,7 @@ class ManagedClustersOperations(object):
             return client_raw_response
 
     def rotate_cluster_certificates(
-            self, resource_group_name, resource_name, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, resource_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
         """Rotate certificates of a managed cluster.
 
         Rotate certificates of a managed cluster.
@@ -1119,6 +1119,7 @@ class ManagedClustersOperations(object):
         raw_result = self._rotate_cluster_certificates_initial(
             resource_group_name=resource_group_name,
             resource_name=resource_name,
+            parameters=parameters,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
