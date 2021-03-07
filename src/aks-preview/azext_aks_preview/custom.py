@@ -2835,6 +2835,11 @@ def aks_rotate_cluster_tokens(cmd, client, resource_group_name, name, no_wait=Tr
     }
     return sdk_no_wait(no_wait, client.rotate_cluster_certificates, resource_group_name, name, parameters)
 
+def aks_reconcile_control_plane_certs(cmd, client, resource_group_name, name, no_wait=True):     # pylint: disable=unused-argument
+    parameters = {
+        'rotateCertMode': "Reconcile"
+    }
+    return sdk_no_wait(no_wait, client.rotate_cluster_certificates, resource_group_name, name, parameters)
 
 def _update_addons(cmd,  # pylint: disable=too-many-branches,too-many-statements
                    instance,
